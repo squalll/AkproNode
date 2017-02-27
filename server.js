@@ -63,6 +63,7 @@ var apiRoutes = express.Router();
 
 var routes = {};
 routes.patient = require('./app/routes/patientRoute.js');
+routes.user = require('./app/routes/userRoute.js');
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
@@ -113,6 +114,8 @@ apiRoutes.post('/patient/create',ensureAuthorized,checkToken, routes.patient.sav
 apiRoutes.post('/patient/findAll',ensureAuthorized,checkToken, routes.patient.findAll);    
 
 apiRoutes.post('/patient/updateCdEtat',ensureAuthorized,checkToken, routes.patient.updateCdEtat);    
+
+apiRoutes.post('/user/create',ensureAuthorized,checkToken, routes.user.save);    
 
 function ensureAuthorized(req, res, next) {
       var bearerToken;

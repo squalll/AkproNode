@@ -11,6 +11,7 @@ module.exports = mongoose.model('User', new Schema({
     prenom: String,
     adresse: String,
     ville: String,
+    cdPostal: String,
     siret: String,
     tel: String,
     mail: String,
