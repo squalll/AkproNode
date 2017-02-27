@@ -1,14 +1,18 @@
 
 
+var User = require('../models/user');
 var Patient = require('../models/patient');
 
 exports.save = function(req, res) {
 	
    
-    var patient = new Patient();      // create a new instance of the Bear model
+    var user = new User();      // create a new instance of the Bear model
     patient.nom = req.body.nom; 
     patient.prenom = req.body.prenom; 
-
+   /* Virus.findById(id, function (err, virus) {
+    console.log(virus.name);     // name is required
+    console.log(virus.taxonomy); // taxonomy is not
+    })*/
     // save the bear and check for errors
     patient.save(function(err) {
             if (err)

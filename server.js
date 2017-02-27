@@ -47,7 +47,7 @@ app.get('/setup', function(req, res) {
 
 	// create a sample user
 	var nick = new User({ 
-		name: 'test@test.fr', 
+		login: 'test@test.fr', 
 		password: 'password',
 		admin: true 
 	});
@@ -71,7 +71,7 @@ app.post('/authenticate', function(req, res) {
   console.log(req.body.username);
   // find the user
   User.findOne({
-    name: req.body.username
+    login: req.body.username
   }, function(err, user) {
 
     if (err) throw err;
@@ -94,7 +94,7 @@ app.post('/authenticate', function(req, res) {
 
         // return the information including token as JSON
         res.json({
-           user: user.name,
+           user: user.login,
           success: true,
           message: 'Enjoy your token!',
           token: token
@@ -110,6 +110,9 @@ app.post('/authenticate', function(req, res) {
 // route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.post('/patient/create',ensureAuthorized,checkToken, routes.patient.save);    
 
+apiRoutes.post('/patient/findAll',ensureAuthorized,checkToken, routes.patient.findAll);    
+
+apiRoutes.post('/patient/updateCdEtat',ensureAuthorized,checkToken, routes.patient.updateCdEtat);    
 
 function ensureAuthorized(req, res, next) {
       var bearerToken;
@@ -118,7 +121,7 @@ function ensureAuthorized(req, res, next) {
   if (bearerHeader &&   typeof bearerHeader !== 'undefined'){
       var bearer = bearerHeader.split(" ");
       bearerToken = bearer[1];
-              console.log(bearerToken);
+             // console.log(bearerToken);
 
        req.token = bearerToken;
           next();

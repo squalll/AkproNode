@@ -1,11 +1,11 @@
 
 
-var Patient = require('../models/patient');
+var SeanceType = require('../models/seaneType');
 
 exports.save = function(req, res) {
 	
    
-    var patient = new Patient();      // create a new instance of the Bear model
+    var patient = new SeanceType();      // create a new instance of the Bear model
     patient.nom = req.body.nom; 
     patient.prenom = req.body.prenom; 
 

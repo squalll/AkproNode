@@ -9,5 +9,5 @@ module.exports = mongoose.model('Patient', new Schema({
     old: Boolean,
     created: { type: Date, default: Date.now },
     updated: { type: Date, default: Date.now },
-    cdEtat: String
+    cdEtat: { type: String, default:'ACT' }
 }));
