@@ -64,6 +64,7 @@ var apiRoutes = express.Router();
 var routes = {};
 routes.patient = require('./app/routes/patientRoute.js');
 routes.user = require('./app/routes/userRoute.js');
+routes.seanceType = require('./app/routes/seanceTypeRoute.js');
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
@@ -116,6 +117,15 @@ apiRoutes.post('/patient/findAll',ensureAuthorized,checkToken, routes.patient.fi
 apiRoutes.post('/patient/updateCdEtat',ensureAuthorized,checkToken, routes.patient.updateCdEtat);    
 
 apiRoutes.post('/user/create',ensureAuthorized,checkToken, routes.user.save);    
+
+apiRoutes.post('/user/findAll',ensureAuthorized,checkToken, routes.user.findAll);    
+
+apiRoutes.post('/seanceType/create',ensureAuthorized,checkToken, routes.seanceType.save);    
+
+apiRoutes.post('/seanceType/findAll',ensureAuthorized,checkToken, routes.seanceType.findAll);    
+
+apiRoutes.post('/seanceType/findAllWithUsers',ensureAuthorized,checkToken, routes.seanceType.findAllWithUser);    
+
 
 function ensureAuthorized(req, res, next) {
       var bearerToken;

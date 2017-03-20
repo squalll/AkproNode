@@ -1,60 +1,51 @@
 
 
-var SeanceType = require('../models/seaneType');
+var SeanceType = require('../models/seanceType');
 
 exports.save = function(req, res) {
 	
    
-    var patient = new SeanceType();      // create a new instance of the Bear model
-    patient.nom = req.body.nom; 
-    patient.prenom = req.body.prenom; 
+    var seanceType = new SeanceType(req.body.seanceType);      // create a new instance of the Bear model
+   //console.log(seanceType);
 
     // save the bear and check for errors
-    patient.save(function(err) {
+    seanceType.save(function(err) {
             if (err)
-                res.send(err);
+               return res.send(err);
 
-            res.json({ message: 'Patient created!' });
+            res.json({ message: 'seanceType created!' });
         });
  
 
 };
 
 exports.findAll = function(req, res) {
-    Patient.find({'cdEtat':req.body.cdEtat}, function (err, users) {
-        res.json(users);
+    SeanceType.find({'cdEtat':req.body.cdEtat}, function (err, seanceTypes) {
+
+           if (err)
+               return res.send(err);
+
+        res.json(seanceTypes);
+    });
+
+};
+
+exports.findAllWithUser= function(req, res) {
+
+
+
+   SeanceType.find({'cdEtat':req.body.cdEtat})
+    .populate('user')
+   .exec(function (err, seanceTypes) {
+        console.log(seanceTypes);
+           if (err)
+               return res.send(err);
+
+        res.json(seanceTypes);
     });
 
 };
 
 
-exports.updateCdEtat = function(req, res) {
-   
-    console.log(req.body.patient._id);
-        console.log(req.body.cdEtat);
 
-    var id = req.body.patient._id;
-    var cdEtat = req.body.cdEtat;
-   console.log(id);
-    if(id!=undefined){
-        Patient.findByIdAndUpdate(id, { $set: { cdEtat: cdEtat }}, { new: true }, function (err, patient) {
-        if (err){
-             return res.status(500).send({ 
-                success: false, 
-                message: err});
-        } else{
-            return res.send(patient);
-        }
-      
-        });
-
-    }else{
-    return res.status(500).send({ 
-        success: false, 
-        message: 'impossible retrouver l id'
-    });
-    }
-
-  
-};
 
