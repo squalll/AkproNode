@@ -34,7 +34,7 @@ exports.findAllWithUser= function(req, res) {
 
 
 
-   SeanceType.find({'cdEtat':req.body.cdEtat})
+   SeanceType.find({})
     .populate('user')
    .exec(function (err, seanceTypes) {
         console.log(seanceTypes);
@@ -46,6 +46,34 @@ exports.findAllWithUser= function(req, res) {
 
 };
 
+exports.updateCdEtat = function(req, res) {
+   
+    console.log(req.body.seance._id);
+        console.log(req.body.cdEtat);
 
+    var id = req.body.seance._id;
+    var cdEtat = req.body.cdEtat;
+   console.log(id);
+    if(id!=undefined){
+        SeanceType.findByIdAndUpdate(id, { $set: { cdEtat: cdEtat }}, { new: true }, function (err, seance) {
+        if (err){
+             return res.status(500).send({ 
+                success: false, 
+                message: err});
+        } else{
+            return res.send(seance);
+        }
+      
+        });
+
+    }else{
+    return res.status(500).send({ 
+        success: false, 
+        message: 'impossible retrouver l id'
+    });
+    }
+
+  
+};
 
 

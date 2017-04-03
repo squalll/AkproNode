@@ -65,6 +65,7 @@ var routes = {};
 routes.patient = require('./app/routes/patientRoute.js');
 routes.user = require('./app/routes/userRoute.js');
 routes.seanceType = require('./app/routes/seanceTypeRoute.js');
+routes.seance = require('./app/routes/seanceRoute.js');
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
@@ -125,6 +126,14 @@ apiRoutes.post('/seanceType/create',ensureAuthorized,checkToken, routes.seanceTy
 apiRoutes.post('/seanceType/findAll',ensureAuthorized,checkToken, routes.seanceType.findAll);    
 
 apiRoutes.post('/seanceType/findAllWithUsers',ensureAuthorized,checkToken, routes.seanceType.findAllWithUser);    
+
+apiRoutes.post('/seanceType/updateCdEtat',ensureAuthorized,checkToken, routes.seanceType.updateCdEtat);    
+
+apiRoutes.post('/seance/create',ensureAuthorized,checkToken, routes.seance.save);    
+
+apiRoutes.post('/seance/findAll',ensureAuthorized,checkToken, routes.seance.findAll);    
+
+apiRoutes.post('/seance/findAllWithUsers',ensureAuthorized,checkToken, routes.seance.findAllWithUser);    
 
 
 function ensureAuthorized(req, res, next) {
